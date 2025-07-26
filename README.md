@@ -113,21 +113,21 @@ The bridge accepts OSC messages in the following formats:
 #### Examples
 ```bash
 # Turn light 1 on
-/hue/light/1/on 1
+/hue/1/on 1
 
 # Turn light 1 on with 2 second transition
-/hue/light/1/on 1 2000
+/hue/1/on 1 2000
 
 # Set light 2 to 50% brightness
-/hue/light/2/brightness 128
+/hue/2/brightness 128
 # or using float values with 1 second transition
-/hue/light/2/brightness 0.5 1000
+/hue/2/brightness 0.5 1000
 
 # Set light 3 to warm white color with 500ms transition
-/hue/light/3/color 0.4 0.4 500
+/hue/3/color 0.4 0.4 500
 
 # Set light 1 to cool blue at 30% brightness with smooth 2 second transition
-/hue/light/1/set 0.15 0.06 0.3 2000
+/hue/1/set 0.15 0.06 0.3 2000
 
 # Set all lights to warm white at 80% brightness instantly
 /hue/all/set 0.4 0.4 0.8
@@ -144,10 +144,10 @@ The `/set` commands allow you to modify only specific properties by using `-1` f
 
 ```bash
 # Set only color (x=0.4, y=0.5), keep current brightness and no transition
-/hue/light/1/set 0.4 0.5 -1 -1
+/hue/1/set 0.4 0.5 -1 -1
 
 # Set only brightness (60%), keep current color and no transition  
-/hue/light/2/set -1 -1 0.6 -1
+/hue/2/set -1 -1 0.6 -1
 
 # Set color and brightness with transition, but skip duration
 /hue/all/set 0.3 0.6 0.8 2000
@@ -156,7 +156,7 @@ The `/set` commands allow you to modify only specific properties by using `-1` f
 /hue/all/set -1 -1 -1 1500
 
 # Set color only with transition duration
-/hue/light/3/set 0.2 0.7 -1 3000
+/hue/3/set 0.2 0.7 -1 3000
 ```
 
 **Note:** When setting color, both X and Y coordinates must be provided (or both set to -1 to skip color entirely).
@@ -179,7 +179,7 @@ The `/set` commands allow you to modify only specific properties by using `-1` f
 /hue/all/set -1 -1 0.3 5000
 ```
 
-**Note:** The application discovers actual lights from your bridge at startup and supports both UUID addressing (`/hue/light/abc-123-def/on`) and numeric addressing (`/hue/light/1/on`) for convenience.
+**Note:** The application discovers actual lights from your bridge at startup and supports both UUID addressing (`/hue/abc-123-def/on`) and numeric addressing (`/hue/1/on`) for convenience.
 
 ### Using with OSC Applications
 

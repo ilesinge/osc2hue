@@ -19,14 +19,14 @@ func main() {
 
 	// Test 1: Individual light brightness
 	fmt.Println("\n1. Setting light 1 brightness to 50% (using brightness handler)...")
-	msg := osc.NewMessage("/hue/light/1/brightness")
+	msg := osc.NewMessage("/hue/1/brightness")
 	msg.Append(float32(0.5)) // 50% brightness
 	client.Send(msg)
 	time.Sleep(3 * time.Second)
 
 	// Test 2: Individual light brightness with transition
 	fmt.Println("\n2. Setting light 1 brightness to 80% with 2000ms transition...")
-	msg = osc.NewMessage("/hue/light/1/brightness")
+	msg = osc.NewMessage("/hue/1/brightness")
 	msg.Append(float32(0.8)) // 80% brightness
 	msg.Append(int32(2000))  // 2 second transition
 	client.Send(msg)

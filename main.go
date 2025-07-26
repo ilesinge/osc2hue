@@ -54,10 +54,10 @@ func startOSCServer(cfg *config.Config, home *openhue.Home, lights []openhue.Lig
 	log.Printf("OSC Server: %s:%d", cfg.OSC.Host, cfg.OSC.Port)
 	log.Printf("Hue Bridge: %s", cfg.Hue.BridgeIP)
 	log.Printf("Available OSC commands:")
-	log.Printf("  /hue/light/{id}/on {0|1} [duration_ms]")
-	log.Printf("  /hue/light/{id}/set {x|-1} [y|-1] [brightness|-1] [duration_ms|-1]")
-	log.Printf("  /hue/light/{id}/brightness {0-254} [duration_ms]")
-	log.Printf("  /hue/light/{id}/color {x} {y} [duration_ms]")
+	log.Printf("  /hue/{id}/on {0|1} [duration_ms]")
+	log.Printf("  /hue/{id}/set {x|-1} [y|-1] [brightness|-1] [duration_ms|-1]")
+	log.Printf("  /hue/{id}/brightness {0-254} [duration_ms]")
+	log.Printf("  /hue/{id}/color {x} {y} [duration_ms]")
 	log.Printf("  /hue/all/on {0|1} [duration_ms]")
 	log.Printf("  /hue/all/set {x|-1} [y|-1] [brightness|-1] [duration_ms|-1]")
 	log.Printf("  /hue/all/brightness {0-254} [duration_ms]")
@@ -94,8 +94,8 @@ func setupHueClient(cfg *config.Config) (*openhue.Home, []openhue.LightGet) {
 				lights = append(lights, light)
 			}
 			log.Printf("Successfully connected! Found %d lights:", len(lights))
-			for _, light := range lights {
-				log.Printf("  Light %s: %s", *light.Id, *light.Metadata.Name)
+			for id, light := range lights {
+				log.Printf("  Light #%d %s: %s", id+1, *light.Id, *light.Metadata.Name)
 			}
 		}
 	}

@@ -45,50 +45,31 @@ func addLightHandlers(oscServer *osc.Server, home *openhue.Home, lights []openhu
 		return
 	}
 
-	for _, light := range lights {
-		// Convert light ID to string for the closure
-		lightID := *light.Id
-
-		// Create handlers with proper closure capture
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%s/on", lightID), func(msg *gosc.Message) {
-			handleLightOn(msg, home, lightID)
-		})
-
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%s/brightness", lightID), func(msg *gosc.Message) {
-			handleLightBrightness(msg, home, lightID)
-		})
-
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%s/color", lightID), func(msg *gosc.Message) {
-			handleLightColor(msg, home, lightID)
-		})
-
-		// Combined color+brightness handler
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%s/set", lightID), func(msg *gosc.Message) {
-			handleLightSet(msg, home, lightID)
-		})
-	}
-
-	// Also add numeric handlers for convenience (1, 2, 3, etc.)
 	for i, light := range lights {
+		// Convert light ID to string for the closure
 		lightID := *light.Id
 		numericID := i + 1
 
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%d/on", numericID), func(msg *gosc.Message) {
-			handleLightOn(msg, home, lightID)
-		})
+		// do it with light and numeric ids
+		for _, id := range []string{lightID, fmt.Sprintf("%d", numericID)} {
+			// Add handlers for both light ID and numeric ID
+			oscServer.AddHandler(fmt.Sprintf("/hue/%s/on", id), func(msg *gosc.Message) {
+				handleLightOn(msg, home, lightID)
+			})
 
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%d/brightness", numericID), func(msg *gosc.Message) {
-			handleLightBrightness(msg, home, lightID)
-		})
+			oscServer.AddHandler(fmt.Sprintf("/hue/%s/brightness", id), func(msg *gosc.Message) {
+				handleLightBrightness(msg, home, lightID)
+			})
 
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%d/color", numericID), func(msg *gosc.Message) {
-			handleLightColor(msg, home, lightID)
-		})
+			oscServer.AddHandler(fmt.Sprintf("/hue/%s/color", id), func(msg *gosc.Message) {
+				handleLightColor(msg, home, lightID)
+			})
 
-		// Combined color+brightness handler for numeric IDs
-		oscServer.AddHandler(fmt.Sprintf("/hue/light/%d/set", numericID), func(msg *gosc.Message) {
-			handleLightSet(msg, home, lightID)
-		})
+			// Combined color+brightness handler
+			oscServer.AddHandler(fmt.Sprintf("/hue/%s/set", id), func(msg *gosc.Message) {
+				handleLightSet(msg, home, lightID)
+			})
+		}
 	}
 }
 

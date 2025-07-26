@@ -62,7 +62,7 @@ func main() {
 
 	// Test 5: Individual light test - set only brightness for light 1
 	fmt.Println("\n5. Setting only brightness (30%) for light 1...")
-	msg = osc.NewMessage("/hue/light/1/set")
+	msg = osc.NewMessage("/hue/1/set")
 	msg.Append(int32(-1))    // x = null (skip)
 	msg.Append(int32(-1))    // y = null (skip)
 	msg.Append(float32(0.3)) // brightness = 30%
