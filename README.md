@@ -6,45 +6,66 @@ A Go application that bridges OSC (Open Sound Control) messages to Philips Hue l
 
 This project provides a bridge between OSC messages and Philips Hue smart lights, allowing you to control your lighting setup through OSC commands.
 
+## Features
+
+- **🚀 Zero-config setup**: Automatic bridge discovery and authentication (just press the bridge button when prompted)
+- **💡 Auto-discovery**: Finds lights from your Hue bridge at startup
+- **🏷️ Dual addressing**: Supports both UUID and numeric light IDs
+- **🌍 Global controls**: Commands to control all lights at once
+- **🎨 CIE XY colors**: Use of Philips Hue colorimetry ([convert to RGB](https://viereck.ch/hue-xy-rgb/))
+- **⚡ Transition support**: Smooth transitions with duration control
+- **🎵 Tidal Cycles integration**: Ready-to-use examples for live coding
+
+### Using with OSC Applications
+
+You can send these messages to control your lights from any OSC-capable application such as:
+- **[Max/MSP](https://cycling74.com/products/max)** - Visual programming for multimedia (built-in OSC objects)
+- **[Pure Data (Pd)](https://puredata.info/)** - Real-time audio/visual programming (built-in or with [OSC externals](https://github.com/pd-externals/osc))
+- **[SuperCollider](https://supercollider.github.io/)** - Audio synthesis platform (built-in NetAddr/sendMsg)
+- **[TidalCycles](https://tidalcycles.org/)** - Live coding music pattern language (with [example implementation](examples/TIDAL_INTEGRATION.md))
+- **[Processing](https://processing.org/)** - Creative coding environment (with [oscP5 library](https://sojamo.de/libraries/oscp5/))
+- **[openFrameworks](https://openframeworks.cc/)** - Creative coding toolkit (with ofxOsc addon)
+
 ## Getting Started
 
 ### Prerequisites
 
-- Go 1.23 or later (automatically upgraded by openhue-go)
 - Philips Hue Bridge on your network
+- That's it! No additional software required.
 
 ### Installation
 
-1. Clone this repository:
+#### Option 1: Download Pre-built Binary (Recommended)
+
+1. **Download the latest release** for your operating system from the [Releases page](../../releases):
+   - **Linux (x64)**: `osc2hue-linux-amd64`
+   - **macOS (Intel)**: `osc2hue-darwin-amd64` 
+   - **macOS (Apple Silicon)**: `osc2hue-darwin-arm64`
+   - **Windows (x64)**: `osc2hue-windows-amd64.exe`
+
+2. **Make it executable** (Linux/macOS):
    ```bash
-   git clone <repository-url>
-   cd osc2hue
+   chmod +x osc2hue-*
    ```
 
-2. Install dependencies:
+3. **Run the application**:
    ```bash
-   go mod tidy
+   ./osc2hue-linux-amd64
+   # or
+   ./osc2hue-darwin-amd64
+   # or on Windows:
+   # osc2hue-windows-amd64.exe
    ```
 
-3. Build the bridge application:
-   ```bash
-   go build -o osc2hue .
-   ```
+#### Option 2: Build from Source
 
-4. Run the application:
-   ```bash
-   ./osc2hue
-   ```
+If you prefer to build from source or need a different architecture, see the [Development](#development) section below.
 
 ## Usage
 
 ### Quick Start
 
-1. **Build and run the application:**
-   ```bash
-   go build -o osc2hue .
-   ./osc2hue
-   ```
+1. **Download and run the application**
 
 2. **Press the link button on your Hue bridge when prompted**
 
@@ -181,22 +202,11 @@ The `/set` commands allow you to modify only specific properties by using `-1` f
 
 **Note:** The application discovers actual lights from your bridge at startup and supports both UUID addressing (`/hue/abc-123-def/on`) and numeric addressing (`/hue/1/on`) for convenience.
 
-### Using with OSC Applications
-
-You can send these messages from any OSC-capable application such as:
-- **[TouchOSC](https://hexler.net/touchosc)** - Mobile and desktop OSC controller
-- **[Max/MSP](https://cycling74.com/products/max)** - Visual programming for multimedia (built-in OSC objects)
-- **[Pure Data (Pd)](https://puredata.info/)** - Real-time audio/visual programming (with mrpeach OSC externals)
-- **[SuperCollider](https://supercollider.github.io/)** - Audio synthesis platform (built-in NetAddr/OSCFunc classes)
-- **[TidalCycles](https://tidalcycles.org/)** - Live coding music pattern language (via SuperCollider OSC)
-- **[Processing](https://processing.org/)** - Creative coding environment (with oscP5 library)
-- **[openFrameworks](https://openframeworks.cc/)** - Creative coding toolkit (with ofxOsc addon)
-
 ## Configuration
 
 ### Configuration File
 
-Create a `config.json` file in the project root with the following structure:
+A `config.json` file will automatically be created in the project root with the following structure:
 
 ```json
 {
@@ -244,16 +254,10 @@ The application automatically discovers Hue bridges on your network at startup! 
 }
 ```
 
-The bridge discovery will:
-1. First try **mDNS discovery** for 5 seconds
-2. Fall back to **online discovery** via discovery.meethue.com if needed
-3. Automatically save the discovered IP to your config file
-
 #### Manual Bridge IP Setup
 If automatic discovery fails, you can manually find your bridge IP:
 
-1. **Automatic discovery:** Visit https://discovery.meethue.com/
-3. **Network scan:** Use `nmap -sn 192.168.1.0/24` (adjust subnet as needed)
+Visit https://discovery.meethue.com/
 
 #### Getting an API Key (Automatic Authentication)
 The application can automatically authenticate with your bridge! Simply run the application and it will:
@@ -268,7 +272,6 @@ The application can automatically authenticate with your bridge! Simply run the 
 # Discovering Hue bridges...
 # Found Hue bridge at 192.168.1.74
 # 🔗 Press the link button on your Hue bridge now...
-#    You have 30 seconds to press the button
 # ✅ Authentication successful!
 # Configuration saved with new API key
 ```
@@ -287,51 +290,63 @@ If you prefer manual setup, you can still get an API key manually:
 
 ## Development
 
+### Prerequisites for Development
+
+- Go 1.23 or later
+- Git
+
+### Building from Source
+
+- **Clone this repository:**
+   ```bash
+   git clone <repository-url>
+   cd osc2hue
+   ```
+
+- **Install dependencies:**
+   ```bash
+   go mod tidy
+   ```
+
+- **Run tests:**
+   ```bash
+   go test ./...
+   ```
+
+- **Build the application:**
+   ```bash
+   go build -o osc2hue .
+   ```
+
+- **Run the application:**
+   ```bash
+   ./osc2hue
+   ```
+
+- **Cross-compile for different platforms:**
+   ```bash
+   GOOS=linux GOARCH=amd64 go build -o osc2hue-linux-amd64 .
+   GOOS=darwin GOARCH=amd64 go build -o osc2hue-darwin-amd64 .
+   GOOS=darwin GOARCH=arm64 go build -o osc2hue-darwin-arm64 .
+   GOOS=windows GOARCH=amd64 go build -o osc2hue-windows-amd64.exe .
+   ```
+
 ### Project Structure
 ```
 osc2hue/
-├── internal/config/       # Configuration management
-├── pkg/osc/              # OSC server wrapper  
-├── main.go               # Main application
-├── Makefile              # Build automation
-├── config.example.json   # Example configuration
-└── go.mod               # Go module definition
+├── internal/
+│   ├── config/           # Configuration management
+│   ├── hue/             # Hue bridge integration
+│   └── osc/             # OSC server implementation
+├── examples/            # Example code and integrations
+│   ├── TIDAL_INTEGRATION.md     # Tidal Cycles guide
+│   ├── tidal-simple-osc.tidal   # Tidal examples
+│   └── *.go             # Test clients
+├── handlers.go          # OSC message handlers
+├── main.go             # Main application entry point
+├── go.mod              # Go module definition
+└── README.md           # This file
 ```
-
-### Building and Testing
-```bash
-# Build the project
-make build
-# or
-go build -o osc2hue .
-
-# Run tests
-make test
-# or  
-go test ./...
-
-# Run the application
-make run
-# or
-./osc2hue
-
-# Format code
-go fmt ./...
-
-# Clean build artifacts
-make clean
-```
-
-### Features
-- **Zero-config setup**: Automatic bridge discovery and authentication
-- **Auto-discovery**: Finds lights from your Hue bridge at startup
-- **Bridge discovery**: Automatically finds and configures your Hue bridge IP
-- **One-click authentication**: Just press the bridge button when prompted
-- **Dual addressing**: Supports both UUID and numeric light IDs
-- **Global controls**: Commands to control all lights at once
-- **CIE XY colors**: Industry-standard color space for accurate colors
-- **Graceful degradation**: Works without bridge connection for testing
-- **Modern Hue API**: Uses official OpenHue library with API v2
 
 ## Contributing
 

@@ -1,7 +1,15 @@
-- Improve architecture by properly encapsulating single-function packages (e.g. config should not call external services), put the initialization and server definition in separate files, etc.
-- Better handle discovery (limit 30sec, etc.)
 - Improve README (remove bullshit)
 - Create Tidal Cycles base integration (osc client) and provide an example
+    - Backport actual working integration
+    - Check funky examples
+    - Add support for special effects and signaling effects)
+        https://pkg.go.dev/github.com/openhue/openhue-go@v0.4.0#LightPut
+        https://pkg.go.dev/github.com/openhue/openhue-go@v0.4.0#Signaling
+        https://pkg.go.dev/github.com/openhue/openhue-go@v0.4.0#SupportedEffects
 - Add other attributes such as color temperature ? check if duplicate of color but could be fun - maybe not useful
-- create repository
+- push repo
 - build with github actions
+- implement rate limiting
+- convert to RGB ?
+- save the config file in a home/config folder
+- check why duration=0 doesn't work
