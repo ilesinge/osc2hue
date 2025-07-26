@@ -14,7 +14,7 @@ run:
 # Clean build artifacts
 clean:
 	go clean
-	rm -f ${BINARY_NAME}
+	rm -f ${BINARY_NAME}*
 
 # Run tests
 test:
