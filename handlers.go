@@ -323,7 +323,7 @@ func handleLightSet(msg *gosc.Message, home *openhue.Home, lightID string) {
 		default:
 			log.Printf("Invalid transition duration type: %T", v)
 		}
-		if transitionMs > 0 {
+		if transitionMs >= 0 {
 			state.Dynamics = &openhue.LightDynamics{Duration: &transitionMs}
 			logParts = append(logParts, fmt.Sprintf("duration=%dms", transitionMs))
 		}
