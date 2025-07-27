@@ -56,11 +56,11 @@ func startOSCServer(cfg *config.Config, home *openhue.Home, lights []openhue.Lig
 	log.Printf("Available OSC commands:")
 	log.Printf("  /hue/{id}/on {0|1} [duration_ms]")
 	log.Printf("  /hue/{id}/set {x|-1} [y|-1] [brightness|-1] [duration_ms|-1]")
-	log.Printf("  /hue/{id}/brightness {0-254} [duration_ms]")
+	log.Printf("  /hue/{id}/brightness {0-1} [duration_ms]")
 	log.Printf("  /hue/{id}/color {x} {y} [duration_ms]")
 	log.Printf("  /hue/all/on {0|1} [duration_ms]")
 	log.Printf("  /hue/all/set {x|-1} [y|-1] [brightness|-1] [duration_ms|-1]")
-	log.Printf("  /hue/all/brightness {0-254} [duration_ms]")
+	log.Printf("  /hue/all/brightness {0-1} [duration_ms]")
 	log.Printf("  /hue/all/color {x} {y} [duration_ms]")
 	log.Printf("Note: Use -1 for null values in /set commands to skip color, brightness, or duration")
 

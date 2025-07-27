@@ -245,22 +245,15 @@ func handleLightSet(msg *gosc.Message, home *openhue.Home, lightID string) {
 	if len(msg.Arguments) >= 3 {
 		switch v := msg.Arguments[2].(type) {
 		case int32:
-			if v != -1 {
-				if v <= 254 {
-					brightness = float64(v) / 254.0 // 0-254 range
-				} else {
-					brightness = float64(v) / 100.0 // assume percentage
-				}
+			if v == 1 || v == 0 {
+				brightness = float64(v)
 				hasBrightness = true
 			}
 		case float32:
 			if v != -1.0 {
-				if v <= 1.0 {
-					brightness = float64(v) // 0.0-1.0 range
-				} else if v <= 100.0 {
-					brightness = float64(v) / 100.0 // percentage
-				} else {
-					brightness = float64(v) / 254.0 // 0-254 range
+				brightness = float64(v) // 0.0-1.0 range
+				if v > 1.0 {
+					brightness = float64(1.0)
 				}
 				hasBrightness = true
 			}

@@ -86,7 +86,7 @@ The bridge accepts OSC messages in the following formats:
   /hue/light/{id}/brightness {value} [duration_ms]
   ```
   - `{id}`: Light ID (UUID or number)
-  - `{value}`: 0-254 (integer) or 0.0-1.0 (float)
+  - `{value}`: 0.0-1.0 (float)
   - `[duration_ms]`: Optional transition duration in milliseconds
 
 - **Set color:**
@@ -103,7 +103,7 @@ The bridge accepts OSC messages in the following formats:
   ```
   - `{id}`: Light ID (UUID or number)
   - `{x|-1}`, `{y|-1}`: CIE XY color coordinates (0.0-1.0) or -1 to skip color change
-  - `{brightness|-1}`: 0-254 (integer) or 0.0-1.0 (float) or -1 to skip brightness change
+  - `{brightness|-1}`: 0.0-1.0 (float) or -1 to skip brightness change
   - `{duration_ms|-1}`: Transition duration in milliseconds or -1 to skip
   - **Note:** When setting color, both X and Y must be provided (or both -1 to skip)
 
@@ -127,9 +127,7 @@ The bridge accepts OSC messages in the following formats:
 # Turn light 1 on with 2 second transition
 /hue/1/on 1 2000
 
-# Set light 2 to 50% brightness
-/hue/2/brightness 128
-# or using float values with 1 second transition
+# Set light 2 to 50% brightness with 1 second transition
 /hue/2/brightness 0.5 1000
 
 # Set light 3 to warm white color with 500ms transition
@@ -179,7 +177,7 @@ The `/set` commands allow you to modify only specific properties by using `-1` f
 /hue/all/on 0 3000
 
 # Set all lights to 75% brightness with smooth 1.5 second transition
-/hue/all/brightness 192 1500
+/hue/all/brightness 0.75 1500
 
 # Set all lights to warm red color instantly
 /hue/all/color 0.6 0.3
