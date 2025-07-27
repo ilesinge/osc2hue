@@ -69,9 +69,8 @@ tidal <- startStream defaultConfig oscmap
 ## Usage
 
 ```haskell
+-- Comprehensive example
 d1 $ light "all*4" # brightness (sine) # duration (range 1 200 (slow 2 sine)) # x saw # y sine -- send 4 update events to all lights with variating brightness, duration and color (x and y)
-
-```
 
 -- Basic light control patterns
 
@@ -85,6 +84,7 @@ d1 $ light "3*8" # brightness (slow 4 sine) # duration 200
 d2 $ light "3*4" # x (range 0 1 $ slow 8 sine) # y (range 0 1 $ slow 6 cosine) # duration 400
 
 -- Advanced patterns
+
   -- Color cycling through different hues
 d3 $ light "all" # x (choose [0.1, 0.3, 0.5, 0.7]) # y (choose [0.1, 0.4, 0.6, 0.8]) # duration 1000
 
@@ -98,16 +98,6 @@ d5 $ light "3*16" # euclidFull 5 16 (brightness "0.25") (brightness "0.75") # du
   
   -- Color changes on euclidean hits
 d5 $ light "3*16" # euclidFull 5 8 (x "0") (x "0.6") # y "0.3" # duration 20
-
--- Conditional patterns
-
- 
-
--- Polyrhythmic light patterns
-
-
--- All lights control
-
 
 -- Silence all patterns
 hush
@@ -123,12 +113,37 @@ let
   -- Breathing effect
   breathe lightid speed = duration "500*8" # light lightid # brightness (slow speed $ range 0.2 1 sine) # duration 500
 
+-- Emotion-driven patterns
+let
+  -- Joy: Bright, warm yellow/orange with fast brightness pulses for energy
+  joy = light "all*8" # x 0.4 # y 0.5 # brightness (fast 2 $ range 0.7 1 sine) # duration 200
+
+  -- Calm: Soft green with slow, gentle brightness waves for tranquility
+  calm = light "all*8" # x 0.3 # y 0.3 # brightness (slow 8 $ range 0.2 0.6 sine) # duration 2000
+
+  -- Excitement: Fast cycling through lights with random bright colors and quick transitions
+  excitement = light (fast 8 $ "<1 2 3 4 5 6>") # x (fast 4 $ choose [0.1,0.7]) # y (fast 4 $ choose [0.1,0.7]) # brightness 1 # duration 10
+
+  -- Anger: Sharp, fast, red pulses
+  anger = light "all*16" # x 0.7 # y 0.3 # brightness (fast 8 $ "1 0.1") # duration 25
+  
+  -- Sadness: Slow, dim, blue fade
+  sadness = light "all*16" # x 0.15 # y 0.06 # brightness (slow 8 $ range 0.05 0.3 sine) # duration 100
+
+  -- Fear: Erratic, cold colors, flickering
+  fear = struct "t*16" $ light (fast 32 $ choose ["1","2","3","all"]) # x 0.15 # y 0.15 # brightness (fast 16 $ choose [0, 0.1, 0.8]) # duration 10
+
+   -- Disgust: Sickly green, uneven patterns
+  disgust = light "3*16" # x 0.25 # y 0.7 # brightness (slow 3 $ range 0.2 0.6 $ irand 10) # duration 800
+
 
 -- Use custom functions
-do
-  d1 $ hueColorWave 1 8
-  d2 $ hueStrobe 2 4
-  d3 $ hueBreathe 3 6
+
+d1 $ hueColorWave 1 8
+d2 $ hueStrobe 2 4
+d3 $ hueBreathe 3 6
+d4 $ sadness
+```
 
 ## Performance Tips
 
