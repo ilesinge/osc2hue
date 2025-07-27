@@ -26,6 +26,8 @@ You can send these messages to control your lights from any OSC-capable applicat
 - **[Processing](https://processing.org/)** - Creative coding environment (with [oscP5 library](https://sojamo.de/libraries/oscp5/))
 - **[openFrameworks](https://openframeworks.cc/)** - Creative coding toolkit (with ofxOsc addon)
 
+Submission of integration examples are welcome.
+
 ## Usage
 
 ### Prerequisites
