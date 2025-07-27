@@ -26,16 +26,14 @@ You can send these messages to control your lights from any OSC-capable applicat
 - **[Processing](https://processing.org/)** - Creative coding environment (with [oscP5 library](https://sojamo.de/libraries/oscp5/))
 - **[openFrameworks](https://openframeworks.cc/)** - Creative coding toolkit (with ofxOsc addon)
 
-## Getting Started
+## Usage
 
 ### Prerequisites
 
 - Philips Hue Bridge on your network
 - That's it! No additional software required.
 
-### Installation
-
-#### Option 1: Download Pre-built Binary (Recommended)
+### Quick Start
 
 1. **Download the latest release** for your operating system from the [Releases page](../../releases):
    - **Linux (x64)**: `osc2hue-linux-amd64`
@@ -57,19 +55,9 @@ You can send these messages to control your lights from any OSC-capable applicat
    # osc2hue-windows-amd64.exe
    ```
 
-#### Option 2: Build from Source
+4. **Press the link button on your Hue bridge when prompted**
 
-If you prefer to build from source or need a different architecture, see the [Development](#development) section below.
-
-## Usage
-
-### Quick Start
-
-1. **Download and run the application**
-
-2. **Press the link button on your Hue bridge when prompted**
-
-3. **Start sending OSC messages to control your lights!**
+5. **Start sending OSC messages to control your lights!**
    The server will be listening on port 8080 (default) for OSC messages.
 
 That's it! The application will automatically:
