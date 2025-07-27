@@ -371,9 +371,11 @@ func handleAllOn(msg *gosc.Message, home *openhue.Home, lights []openhue.LightGe
 		return
 	}
 
-	// Apply to all lights using the single light handler
+	// Apply to all lights simultaneously using goroutines
 	for _, light := range lights {
-		handleLightOn(msg, home, *light.Id)
+		go func(lightID string) {
+			handleLightOn(msg, home, lightID)
+		}(*light.Id)
 	}
 	log.Printf("All lights turned %v", on)
 }
@@ -443,9 +445,11 @@ func handleAllSet(msg *gosc.Message, home *openhue.Home, lights []openhue.LightG
 		return
 	}
 
-	// Apply to all lights using the single light handler
+	// Apply to all lights simultaneously using goroutines
 	for _, light := range lights {
-		handleLightSet(msg, home, *light.Id)
+		go func(lightID string) {
+			handleLightSet(msg, home, lightID)
+		}(*light.Id)
 	}
 	log.Printf("All lights updated")
 }

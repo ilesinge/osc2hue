@@ -7,4 +7,3 @@
 - convert to RGB ?
 - save the config file in a home/config folder
 - add example video
-- use goroutines to increase concurrency
