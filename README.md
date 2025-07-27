@@ -19,12 +19,13 @@ This project provides a bridge between OSC messages and Philips Hue smart lights
 ### Using with OSC Applications
 
 You can send these messages to control your lights from any OSC-capable application such as:
-- **[Max/MSP](https://cycling74.com/products/max)** - Visual programming for multimedia (built-in OSC objects)
+- **[Sonic Pi](https://sonic-pi.net/)** - Live coding music with built-in OSC support
 - **[Pure Data (Pd)](https://puredata.info/)** - Real-time audio/visual programming (built-in or with [OSC externals](https://github.com/pd-externals/osc))
 - **[SuperCollider](https://supercollider.github.io/)** - Audio synthesis platform (built-in NetAddr/sendMsg)
 - **[TidalCycles](https://tidalcycles.org/)** - Live coding music pattern language (with [example implementation](examples/TIDAL_INTEGRATION.md))
 - **[Processing](https://processing.org/)** - Creative coding environment (with [oscP5 library](https://sojamo.de/libraries/oscp5/))
 - **[openFrameworks](https://openframeworks.cc/)** - Creative coding toolkit (with ofxOsc addon)
+- etc.
 
 Submission of integration examples are welcome.
 
