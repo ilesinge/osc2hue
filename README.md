@@ -345,6 +345,15 @@ osc2hue/
 4. Add tests if applicable
 5. Submit a pull request
 
+## Dependencies
+
+This project is built with the following open source libraries:
+
+- **[gosc](https://github.com/hypebeast/go-osc)** - OSC (Open Sound Control) implementation for Go
+- **[openhue-go](https://github.com/openhue/openhue-go)** - Philips Hue API client for Go
+
+Special thanks to the maintainers and contributors of these excellent libraries that make this project possible.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
