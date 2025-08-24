@@ -36,6 +36,12 @@ Submission of integration examples are welcome.
 - Philips Hue Bridge on your network
 - That's it! No additional software required.
 
+### Alternate setup
+
+OSC2Hue is also compatible with software-only Hue Bridge emulators such as:
+- [huemulator](https://github.com/ilesinge/huemulator) for software lights emulation
+- [diyhue](https://diyhue.org/) to control other brands of lights
+
 ### Quick Start
 
 1. **Download the latest release** for your operating system from the [Releases page](../../releases):
